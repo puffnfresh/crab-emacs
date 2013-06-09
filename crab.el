@@ -29,7 +29,7 @@
     nil
   (progn
     (setq crab-mode-map (make-sparse-keymap))
-    (define-key crab-mode-map (kbd "C-c C-f") 'crab-open-url)
+    (define-key crab-mode-map (kbd "C-c C-x C-f") 'crab-open-url)
     (define-key crab-mode-map (kbd "C-c C-e") 'crab-eval)
     (define-key crab-mode-map (kbd "C-c C-l") 'crab-location)
     (define-key crab-mode-map (kbd "C-c C-f") 'crab-forward)
