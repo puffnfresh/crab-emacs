@@ -1,5 +1,10 @@
 ;;; crab.el --- WebSocket server to remotely control a browser
 
+;; Author: Brian McKenna <brian@brianmckenna.org>
+;; URL: https://github.com/puffnfresh/crab-emacs
+;; Version: 0.1
+;; Package-Requires: ((websocket "1.0") (json "1.2"))
+
 ;; Enable crab-minor-mode to get a browsing keymap (crab-mode-map) for
 ;; that buffer. If you would like to browse anywhere, enable
 ;; global-crab-mode.
@@ -36,17 +41,21 @@
     (define-key crab-mode-map (kbd "C-c M-<") 'crab-beginning-of-page)
     (define-key crab-mode-map (kbd "C-c M->") 'crab-end-of-page)))
 
+;;;###autoload
 (define-minor-mode crab-mode
   "A minor mode for web browsing using an external browser."
   nil
   nil
   'crab-mode-map)
 
+;;;###autoload
 (define-globalized-minor-mode global-crab-mode
   crab-mode
   crab-mode)
 
 ;; WebSocket server
+
+;;;###autoload
 (defun crab-server-start ()
   (interactive)
   (crab-server-stop)
@@ -105,3 +114,5 @@
 
 
 (provide 'crab-mode)
+
+;;; crab-mode.el ends here
