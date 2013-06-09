@@ -30,6 +30,7 @@
   (progn
     (setq crab-mode-map (make-sparse-keymap))
     (define-key crab-mode-map (kbd "C-c C-x C-f") 'crab-open-url)
+    (define-key crab-mode-map (kbd "C-c f") 'crab-show-link-hints)
     (define-key crab-mode-map (kbd "C-c C-e") 'crab-eval)
     (define-key crab-mode-map (kbd "C-c C-l") 'crab-location)
     (define-key crab-mode-map (kbd "C-c C-f") 'crab-forward)
@@ -97,6 +98,19 @@
 (defun crab-location (url)
   (interactive "MURL: ")
   (crab-eval (format "window.location = \"%s\";" url)))
+
+(defun crab-show-link-hints (hint)
+  (interactive
+   (list
+    (let ((inhibit-quit t))
+      (let ((number
+             (with-local-quit
+               (websocket-send-text crab-client (json-encode (list :cmd "show-link-hints")))
+               (read-number "Hint: "))))
+        (unless number
+          (websocket-send-text crab-client (json-encode (list :cmd "hide-link-hints"))))
+        number))))
+  (websocket-send-text crab-client (json-encode (list :cmd "click-link-hint" :index hint))))
 
 (defmacro defcrabcommand (name command)
   `(defun ,name ()
