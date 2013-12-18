@@ -91,6 +91,18 @@
   (interactive "MURL: ")
   (websocket-send-text crab-client (json-encode (list :cmd "open-tab" :url url))))
 
+(defun crab-next-tab ()
+  (interactive)
+  (websocket-send-text crab-client (json-encode (list :cmd "next-tab"))))
+
+(defun crab-prev-tab ()
+  (interactive)
+  (websocket-send-text crab-client (json-encode (list :cmd "prev-tab"))))
+
+(defun crab-close-tab ()
+  (interactive)
+  (websocket-send-text crab-client (json-encode (list :cmd "close-tab"))))
+
 (defun crab-eval (js)
   (interactive "MJavaScript: ")
   (websocket-send-text crab-client (json-encode (list :cmd "eval" :code js))))
