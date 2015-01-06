@@ -139,6 +139,6 @@
 (defcrabcommand crab-end-of-page "document.body.scrollTop = document.body.scrollHeight;")
 
 
-(provide 'crab-mode)
+(provide 'crab)
 
-;;; crab-mode.el ends here
+;;; crab.el ends here
