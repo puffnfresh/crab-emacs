@@ -37,6 +37,7 @@
     (define-key crab-mode-map (kbd "C-c C-b") 'crab-back)
     (define-key crab-mode-map (kbd "C-c C-p") 'crab-previous)
     (define-key crab-mode-map (kbd "C-c C-n") 'crab-next)
+    (define-key crab-mode-map (kbd "C-c C-r") 'crab-reload)
     (define-key crab-mode-map (kbd "C-c M-v") 'crab-scroll-up)
     (define-key crab-mode-map (kbd "C-c C-v") 'crab-scroll-down)
     (define-key crab-mode-map (kbd "C-c M-<") 'crab-beginning-of-page)
@@ -53,6 +54,16 @@
 (define-globalized-minor-mode global-crab-mode
   crab-mode
   crab-mode)
+
+;;;###autoload
+(define-minor-mode crab-reload-on-save-mode
+  "Toggle auto reloading current tab with crab on save."
+  nil
+  nil
+  nil
+  (if crab-reload-on-save-mode
+      (add-hook 'after-save-hook #'crab-reload)
+    (remove-hook 'after-save-hook #'crab-reload)))
 
 ;; WebSocket server
 
@@ -133,6 +144,7 @@
 (defcrabcommand crab-forward "window.history.forward();")
 (defcrabcommand crab-previous "document.body.scrollTop -= 100")
 (defcrabcommand crab-next "document.body.scrollTop += 100;")
+(defcrabcommand crab-reload "window.location.reload();")
 (defcrabcommand crab-scroll-up "document.body.scrollTop -= 1000;")
 (defcrabcommand crab-scroll-down  "document.body.scrollTop += 1000;")
 (defcrabcommand crab-beginning-of-page "document.body.scrollTop = 0;")
